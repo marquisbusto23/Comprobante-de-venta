@@ -10,59 +10,56 @@ namespace Comprobantes_
 
             Console.WriteLine("Ingresar tipo de factura:");
             comprobantes.TipoDeComprobante = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Tipo de Factura:"+comprobantes.TipoDeComprobante);
-
+            
+            
             Console.WriteLine("Ingrese Datos del cliente");
             comprobantes.DatosDeCliente = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Datos ingresados:"+comprobantes.DatosDeCliente);
+            
 
             Console.WriteLine("Ingrese Detalles:");
             comprobantes.Detalle = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("Detalles:"+comprobantes.Detalle);
+            Console.Clear();
+            
 
-            Console.WriteLine("Ingresar fecha de EMISION(ingresar dd mm aaaa)");
+            Console.WriteLine("Ingresar fecha de EMISION de factura (formato dd mm aaaa)");
             comprobantes.FechaEmision = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("fecha ingresada: "+comprobantes.FechaEmision);
-
             
-            //comprobantes.Vencimiento1 = comprobantes.FechaEmision.AddDays(15);
-            //Console.WriteLine("1° VENCIMIENTO: " + comprobantes.Vencimiento1);
 
-            
-            //comprobantes.Vencimiento2 = comprobantes.FechaEmision.AddDays(30);
-            //Console.WriteLine("2° VENCIMIENTO: " + comprobantes.Vencimiento2);
-
-            
-            //comprobantes.Vencimiento3 = comprobantes.FechaEmision.AddDays(60);
-            //Console.WriteLine("3° VENCIMIENTO: " + comprobantes.Vencimiento3);
-
-            Console.WriteLine("Ingresar fecha de PAGO(ingresar dd mm aaaa)");
+            Console.WriteLine("Ingresar fecha de PAGO de factura (formato dd mm aaaa)");
             comprobantes.FechaPago = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("fecha ingresada: " + comprobantes.FechaPago);
+            
 
-                      
             int dias = (comprobantes.FechaPago - comprobantes.FechaEmision).Days;
-            Console.WriteLine(dias);
+            
 
-            Console.WriteLine("Ingrese monto:");
+            Console.WriteLine("Ingrese Valor de la Factura:");
             comprobantes.Importe = Convert.ToDecimal(Console.ReadLine());
-            Console.WriteLine("Monto ingresado:"+comprobantes.Importe);
+            
 
-            Console.WriteLine("Ingrese cada cuantos dias se aumenta el interes:");
+            Console.WriteLine("Ingrese cada cuantos dias debe aumentar el interes:");
             comprobantes.DiasPagar = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("dias pasados:" + comprobantes.DiasPagar);
+            
 
             Console.WriteLine("Ingrese interes:");
             comprobantes.Interes = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Interes ingresado:" + comprobantes.Interes);
-
-            comprobantes.DiasDeIncrementoDeInteres = dias / comprobantes.DiasPagar;
+            Console.Clear();
+           
+            comprobantes.DiasDeIncrementoDeInteres = (int)dias / (int)comprobantes.DiasPagar;
             comprobantes.InteresAumentado = comprobantes.DiasDeIncrementoDeInteres * comprobantes.Interes;
 
             var recargoServicio = new ReglaDeCalculo();
-            var recargoCobrar = recargoServicio.CalcularRecargo(comprobantes, dias); 
+            var recargoCobrar = recargoServicio.CalcularRecargo(comprobantes, dias);
 
+            Console.WriteLine("Tipo de Factura:" + comprobantes.TipoDeComprobante);
+            Console.WriteLine("Datos del Cliente:" + comprobantes.DatosDeCliente);
+            Console.WriteLine("Detalles de la Factura:" + comprobantes.Detalle);
+            Console.WriteLine("fecha de Emision: " + comprobantes.FechaEmision);           
+            Console.WriteLine("fecha de Pago: " + comprobantes.FechaPago);           
+            Console.WriteLine("Valor de Factura:" + comprobantes.Importe);
+            Console.WriteLine("Cada " + comprobantes.DiasPagar + " dias aumenta un " + comprobantes.Interes+ "%");
+            Console.WriteLine("Dias pasados:" + dias);
             Console.WriteLine("Valor de la Factura con interes aplicado:" + recargoCobrar);
+
 
         }     
         
